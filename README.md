@@ -148,8 +148,13 @@ Anything prefixed with `VITE_` is shipped to the browser. Never put a secret key
 ## Deploy on Render (free static site)
 
 1. In [Render](https://dashboard.render.com): **New → Blueprint** and connect this GitHub repo (uses [`render.yaml`](render.yaml)).
-2. Or **New → Static Site** with **Build:** `npm ci && npm run build`, **Publish:** `dist`, and rewrite `/*` → `/index.html`.
-3. Stellar `VITE_*` vars are set in `render.yaml` (public testnet defaults). No secrets required.
+2. Confirm the service shows **Runtime: Static** (not a Node web service). **Leave Start Command empty.**
+3. Manual static site settings if needed: **Build** `npm ci --include=dev && npm run build`, **Publish** `dist`, rewrite **`/*` → `/index.html`**.
+4. Stellar `VITE_*` vars are in `render.yaml` (public testnet defaults). No secrets required.
+
+**If deploy logs say “No open ports detected”** — you created a **Web Service** by mistake. Delete it and redeploy with **Blueprint** or **Static Site**. Vite apps must not bind a port on Render’s free tier for this setup.
+
+**If TypeScript fails on `@vitejs/plugin-react` or `@types/react-dom`** — the build skipped devDependencies. Use `npm ci --include=dev && npm run build` (already in `render.yaml`).
 
 ## Safety & Privacy
 
