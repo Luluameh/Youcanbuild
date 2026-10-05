@@ -145,6 +145,12 @@ npm run lint
 
 Anything prefixed with `VITE_` is shipped to the browser. Never put a secret key or seed phrase in one of these variables.
 
+## Deploy on Render (free static site)
+
+1. In [Render](https://dashboard.render.com): **New → Blueprint** and connect this GitHub repo (uses [`render.yaml`](render.yaml)).
+2. Or **New → Static Site** with **Build:** `npm ci && npm run build`, **Publish:** `dist`, and rewrite `/*` → `/index.html`.
+3. Stellar `VITE_*` vars are set in `render.yaml` (public testnet defaults). No secrets required.
+
 ## Safety & Privacy
 
 Some learners may be under 18.
