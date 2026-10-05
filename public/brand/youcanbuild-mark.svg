@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="YouCanBuild">
+  <!-- Transparent; palette matches official mark: navy / sky / mint -->
+  <path
+    fill="#4A8CAF"
+    d="M58 64c-22 4-38-10-42-32-2-10 4-22 16-26 10-4 20 2 26 14 4 8 2 18 0 44z"
+  />
+  <path
+    fill="#72B9B3"
+    d="M62 64c22 4 38-10 42-32 2-10-4-22-16-26-10-4-20 2-26 14-4 8-2 18 0 44z"
+  />
+  <path
+    fill="#164E67"
+    d="M60 62c-7 0-13 5-16 13-6 16 2 34 16 38 14-4 22-22 16-38-3-8-9-13-16-13z"
+  />
+</svg>

@@ -37,6 +37,14 @@ export type LearnerProfile = {
   onboardingComplete: boolean;
 };
 
+export type MentorSocialLinks = {
+  github?: string;
+  linkedIn?: string;
+  /** X (Twitter) profile URL */
+  twitter?: string;
+  website?: string;
+};
+
 export type MentorProfile = {
   id: string;
   displayName: string;
@@ -47,6 +55,10 @@ export type MentorProfile = {
   verification: MentorVerification;
   availability: MentorAvailability;
   pathIds: LearningPathId[];
+  /** Optional profile photo for the public directory */
+  avatarSrc?: string;
+  /** Public links learners can review before requesting guidance */
+  social?: MentorSocialLinks;
 };
 
 /** Mentor account data for signed-in users (not the public directory). */
@@ -147,10 +159,16 @@ export type StellarVerification =
     }
   | { status: "failed"; message: string };
 
+export type KnowledgeCheckResult =
+  | { status: "required" }
+  | { status: "passed"; passedAt: string; score: number; total: number };
+
 export type EarnedAchievement = {
   achievementId: string;
   earnedAt: string;
   verification: StellarVerification;
+  /** Short quiz on roadmap topics — must pass before Stellar verification. */
+  knowledgeCheck?: KnowledgeCheckResult;
 };
 
 export type MentorshipGuidance = {

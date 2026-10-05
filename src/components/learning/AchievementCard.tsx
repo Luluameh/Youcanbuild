@@ -31,7 +31,7 @@ export function AchievementCard({ earned, linkToDetail = true }: AchievementCard
       <p className="mt-2 text-sm leading-6 text-muted">{definition.description}</p>
       <p className="mt-3 text-xs font-medium text-primary">{pathLabels[definition.pathId]}</p>
       {status === "Ready to verify on Stellar" ? (
-        <p className="mt-3 text-xs text-muted">Open card → Verify Achievement (Freighter)</p>
+        <p className="mt-3 text-xs text-muted">Open card → Verify Achievement (Stellar wallet)</p>
       ) : null}
       {status === "Verified on Stellar" ? (
         <p className="mt-3 text-xs font-semibold text-success">View verification</p>

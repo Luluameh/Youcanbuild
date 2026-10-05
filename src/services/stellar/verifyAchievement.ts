@@ -14,10 +14,9 @@ import type {
   VerifyAchievementServiceResult,
 } from "@/services/stellar/types.ts";
 import {
-  assertFreighterAvailable,
-  assertFreighterOnTestnet,
-  connectFreighterWallet,
-  signFreighterTransaction,
+  assertWalletOnTestnet,
+  connectStellarWallet,
+  signStellarTransaction,
 } from "@/services/stellar/wallet.ts";
 
 function setPhase(listener: VerificationPhaseListener | undefined, phase: Parameters<VerificationPhaseListener>[0]) {
@@ -72,9 +71,8 @@ export async function verifyAchievementOnStellar(
 
   try {
     setPhase(onPhase, "connecting-wallet");
-    await assertFreighterAvailable();
-    await assertFreighterOnTestnet();
-    const wallet = await connectFreighterWallet();
+    const wallet = await connectStellarWallet();
+    await assertWalletOnTestnet();
 
     setPhase(onPhase, "building");
     try {
@@ -96,7 +94,7 @@ export async function verifyAchievementOnStellar(
     );
 
     setPhase(onPhase, "awaiting-signature");
-    const signedXdr = await signFreighterTransaction(transactionXdr, wallet.publicKey);
+    const signedXdr = await signStellarTransaction(transactionXdr, wallet.publicKey);
 
     setPhase(onPhase, "submitting");
     let transactionHash: string;

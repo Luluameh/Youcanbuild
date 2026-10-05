@@ -1,24 +1,26 @@
 import { Link } from "react-router";
-import { site } from "@/config/site.ts";
+import { BrandMark } from "@/components/layout/BrandMark.tsx";
 import { cn } from "@/lib/cn.ts";
 
 type LogoProps = {
   className?: string;
+  /** Show wordmark text beside the mark (default true). */
+  showWordmark?: boolean;
 };
 
-export function Logo({ className }: LogoProps) {
+export function Logo({ className, showWordmark = true }: LogoProps) {
   return (
     <Link
       to="/"
-      className={cn("inline-flex items-center gap-2 rounded-lg focus-visible:outline-offset-4", className)}
+      className={cn("inline-flex items-center gap-2.5 rounded-lg focus-visible:outline-offset-4", className)}
     >
-      <span
-        aria-hidden="true"
-        className="grid size-8 place-items-center rounded-lg bg-primary font-display text-sm font-semibold text-white"
-      >
-        Y
-      </span>
-      <span className="font-display text-lg font-semibold tracking-tight text-ink">{site.name}</span>
+      <BrandMark className="size-9" />
+      {showWordmark ? (
+        <span className="font-sans text-lg font-bold tracking-tight">
+          <span className="text-brand-navy">YouCan</span>
+          <span className="text-brand-mint">Build</span>
+        </span>
+      ) : null}
     </Link>
   );
 }

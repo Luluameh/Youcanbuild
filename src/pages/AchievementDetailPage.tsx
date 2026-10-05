@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router";
+import { AchievementKnowledgeCheckPanel } from "@/components/learning/AchievementKnowledgeCheckPanel.tsx";
 import { AchievementVerificationPanel } from "@/components/learning/AchievementVerificationPanel.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { ButtonLink } from "@/components/ui/Button.tsx";
@@ -70,6 +71,7 @@ export function AchievementDetailPage() {
         </dl>
       </Card>
 
+      <AchievementKnowledgeCheckPanel earned={earned} />
       <AchievementVerificationPanel earned={earned} />
     </div>
   );

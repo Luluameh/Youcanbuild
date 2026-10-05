@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Stellar">
+  <title>Stellar</title>
+  <circle cx="256" cy="256" r="256" fill="#000000"/>
+  <path
+    fill="#FFFFFF"
+    d="M256 88.5 362.8 273.5H256l-53.4 92.5H149.2L256 88.5Zm0 0 106.8 185-53.4 92.5H256l53.4-92.5H362.8L256 88.5ZM149.2 273.5 256 458.5 149.2 273.5h53.4l53.4 92.5 53.4-92.5h-53.4l-53.4-92.5h53.4Z"
+  />
+</svg>

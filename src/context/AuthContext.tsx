@@ -22,6 +22,7 @@ import { verifyAchievementOnStellar } from "@/services/stellar/verifyAchievement
 import type { VerificationPhaseListener, VerifyAchievementServiceResult } from "@/services/stellar/types.ts";
 import { createInitialProgress } from "@/lib/initialProgress.ts";
 import { applyModuleCompletion, normalizeEarnedAchievements, normalizeModuleProgress, type CompleteModuleResult } from "@/lib/learnerProgress.ts";
+import { gradeKnowledgeCheck, hasPassedKnowledgeCheck } from "@/lib/knowledgeCheck.ts";
 import type {
   AccountMentorProfile,
   EarnedAchievement,
@@ -85,6 +86,12 @@ type AuthContextValue = {
     achievementId: string,
     onPhase?: VerificationPhaseListener,
   ) => Promise<VerifyAchievementServiceResult>;
+  submitKnowledgeCheck: (
+    achievementId: string,
+    answers: Record<string, string>,
+  ) =>
+    | { ok: true; score: number; total: number }
+    | { ok: false; score: number; total: number; passAt: number };
 };
 
 function repairLearnerAccount(account: StoredAccount): StoredAccount {
@@ -411,6 +418,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         };
       }
 
+      if (!hasPassedKnowledgeCheck(earned)) {
+        return {
+          ok: false,
+          error: new StellarServiceError(
+            "validation",
+            "Pass the knowledge check on this achievement before verifying on Stellar testnet.",
+          ),
+        };
+      }
+
       const result = await verifyAchievementOnStellar(
         {
           achievementId,
@@ -444,6 +461,59 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [accounts, activeAccount, persistAccounts],
   );
 
+  const submitKnowledgeCheck = useCallback(
+    (
+      achievementId: string,
+      answers: Record<string, string>,
+    ):
+      | { ok: true; score: number; total: number }
+      | { ok: false; score: number; total: number; passAt: number } => {
+      if (!activeAccount?.learner) {
+        return { ok: false, score: 0, total: 0, passAt: 1 };
+      }
+
+      const earnedIndex = activeAccount.learner.earnedAchievements.findIndex(
+        (item) => item.achievementId === achievementId,
+      );
+      if (earnedIndex === -1) {
+        return { ok: false, score: 0, total: 0, passAt: 1 };
+      }
+
+      const graded = gradeKnowledgeCheck(achievementId, answers);
+      if (!graded.ok) {
+        return { ok: false, score: graded.score, total: graded.total, passAt: graded.passAt };
+      }
+
+      const earnedAchievements = activeAccount.learner.earnedAchievements.map((item, index) =>
+        index === earnedIndex
+          ? {
+              ...item,
+              knowledgeCheck: {
+                status: "passed" as const,
+                passedAt: graded.passedAt,
+                score: graded.score,
+                total: graded.total,
+              },
+            }
+          : item,
+      );
+
+      persistAccounts({
+        ...accounts,
+        [activeAccount.user.id]: {
+          ...activeAccount,
+          learner: {
+            ...activeAccount.learner,
+            earnedAchievements,
+          },
+        },
+      });
+
+      return { ok: true, score: graded.score, total: graded.total };
+    },
+    [accounts, activeAccount, persistAccounts],
+  );
+
   const value = useMemo<AuthContextValue>(
     () => ({
       ready,
@@ -462,6 +532,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       completeMentorOnboarding,
       completeModule,
       verifyAchievement,
+      submitKnowledgeCheck,
     }),
     [
       ready,
@@ -476,6 +547,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       completeMentorOnboarding,
       completeModule,
       verifyAchievement,
+      submitKnowledgeCheck,
     ],
   );
 

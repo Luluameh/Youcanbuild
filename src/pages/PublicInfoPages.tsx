@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/ui/PageHeader.tsx";
 import { mentors } from "@/data/catalog.ts";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle.ts";
 import { Badge } from "@/components/ui/Badge.tsx";
+import { MentorSocialLinks } from "@/components/mentorship/MentorSocialLinks.tsx";
 import { Avatar } from "@/components/ui/Avatar.tsx";
 
 export function MentorsPage() {
@@ -27,7 +28,7 @@ export function MentorsPage() {
         {mentors.map((mentor) => (
           <Card key={mentor.id}>
             <div className="flex items-start gap-3">
-              <Avatar name={mentor.displayName} />
+              <Avatar name={mentor.displayName} src={mentor.avatarSrc} />
               <div>
                 <p className="font-semibold text-ink">{mentor.displayName}</p>
                 <p className="text-sm text-muted">{mentor.headline}</p>
@@ -37,6 +38,7 @@ export function MentorsPage() {
               </div>
             </div>
             <p className="mt-3 text-sm leading-6 text-muted">{mentor.bio}</p>
+            <MentorSocialLinks social={mentor.social} className="mt-4" />
             <ul className="mt-3 flex flex-wrap gap-2">
               {mentor.technologies.slice(0, 4).map((tech) => (
                 <li key={tech} className="rounded-full border border-line px-2 py-0.5 text-xs text-muted">

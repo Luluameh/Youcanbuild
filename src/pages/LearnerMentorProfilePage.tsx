@@ -4,6 +4,7 @@ import { ButtonLink } from "@/components/ui/Button.tsx";
 import { Card } from "@/components/ui/Card.tsx";
 import { EmptyState } from "@/components/ui/EmptyState.tsx";
 import { PageHeader } from "@/components/ui/PageHeader.tsx";
+import { MentorSocialLinks } from "@/components/mentorship/MentorSocialLinks.tsx";
 import { Avatar } from "@/components/ui/Avatar.tsx";
 import { getMentor } from "@/data/catalog.ts";
 import { useMentorship } from "@/context/MentorshipContext.tsx";
@@ -57,7 +58,7 @@ export function LearnerMentorProfilePage() {
 
       <Card>
         <div className="flex items-start gap-4">
-          <Avatar name={mentor.displayName} className="size-14 text-lg" />
+          <Avatar name={mentor.displayName} src={mentor.avatarSrc} className="size-14 text-lg" />
           <div>
             <div className="flex flex-wrap gap-2">
               <Badge tone={verification.tone}>{verification.label}</Badge>
@@ -67,6 +68,7 @@ export function LearnerMentorProfilePage() {
           </div>
         </div>
         <p className="mt-6 text-sm leading-7 text-muted">{mentor.bio}</p>
+        <MentorSocialLinks social={mentor.social} className="mt-6" />
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <div>
             <h2 className="text-sm font-semibold text-ink">Expertise</h2>

@@ -4,22 +4,27 @@
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
 
-  --color-paper: #f6f3ee;
-  --color-paper-raised: #fffdfb;
-  --color-ink: #1f1a17;
-  --color-muted: #4e4842;
-  --color-line: #e4ddd3;
-  --color-primary: #0b5c50;
-  --color-primary-strong: #08473e;
-  --color-primary-soft: #e6f3f0;
-  --color-accent: #c4622b;
-  --color-accent-strong: #a34e1e;
+  --color-paper: #f3f6f8;
+  --color-paper-raised: #fcfdfe;
+  --color-ink: #152a38;
+  --color-muted: #4a5f6d;
+  --color-line: #d8e2e8;
+  --color-primary: #164e67;
+  --color-primary-strong: #123548;
+  --color-primary-soft: #e3f0f4;
+  --color-accent: #4a8caf;
+  --color-accent-strong: #3a7394;
   --color-success: #1b6b43;
   --color-success-soft: #e7f5ee;
   --color-warning: #8a5a08;
   --color-warning-soft: #fbf3e2;
   --color-danger: #9f1d14;
   --color-danger-soft: #fdecec;
+
+  /* Logo palette */
+  --color-brand-navy: #164e67;
+  --color-brand-sky: #4a8caf;
+  --color-brand-mint: #72b9b3;
 }
 
 @layer base {
@@ -54,5 +59,32 @@
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .print-certificate-root,
+  .print-certificate-root * {
+    visibility: visible;
+  }
+
+  .print-certificate-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .certificate-sheet {
+    border-width: 2px;
+    box-shadow: none;
   }
 }

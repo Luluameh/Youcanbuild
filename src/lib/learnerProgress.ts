@@ -6,6 +6,7 @@ import type {
   StellarVerification,
 } from "@/types/index.ts";
 import { summarizeProgress } from "@/lib/progress.ts";
+import { defaultKnowledgeCheckState, normalizeKnowledgeCheck } from "@/lib/knowledgeCheck.ts";
 
 export type CompleteModuleResult =
   | { ok: false; reason: string }
@@ -166,6 +167,7 @@ export function applyModuleCompletion(
         achievementId: module.achievementId,
         earnedAt: completedAt,
         verification,
+        knowledgeCheck: defaultKnowledgeCheckState(),
       },
     ];
     achievementId = module.achievementId;
@@ -202,17 +204,19 @@ function isVerifiedRecord(verification: StellarVerification): verification is Ex
 /** Ensures older localStorage records gain `ready` so Stellar verification UI can appear. */
 export function normalizeEarnedAchievements(earned: readonly EarnedAchievement[]): EarnedAchievement[] {
   return earned.map((item) => {
+    let next = item;
     const verification = item.verification;
     if (isVerifiedRecord(verification)) {
-      return item;
+      next = { ...item, verification };
+    } else if (verification?.status === "ready") {
+      next = { ...item, verification: { status: "ready" as const } };
+    } else {
+      next = {
+        ...item,
+        verification: { status: "ready" as const },
+      };
     }
-    if (verification?.status === "ready") {
-      return item;
-    }
-    return {
-      ...item,
-      verification: { status: "ready" as const },
-    };
+    return normalizeKnowledgeCheck(next);
   });
 }
 

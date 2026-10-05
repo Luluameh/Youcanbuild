@@ -27,7 +27,7 @@ export function LearnerAchievementsPage() {
       <PageHeader
         eyebrow="Achievements"
         title="Your achievements"
-        description="Earn milestones locally, then optionally verify major ones on Stellar testnet (Freighter wallet)."
+        description="Earn milestones locally, then optionally verify major ones on Stellar testnet (any supported wallet)."
       />
 
       {firstReady ? (
@@ -35,8 +35,8 @@ export function LearnerAchievementsPage() {
           <p className="text-sm font-semibold text-ink">Stellar verification available</p>
           <p className="mt-2 text-sm leading-6 text-muted">
             Open an achievement with the badge <strong className="text-ink">Ready to verify on Stellar</strong>, then
-            click <strong className="text-ink">Verify Achievement</strong>. Freighter opens only when you choose to
-            verify—there is no wallet button on the rest of the app.
+            click <strong className="text-ink">Verify Achievement</strong>. A wallet picker opens (Freighter, LOBSTR,
+            WalletConnect, and more)—there is no wallet button on the rest of the app.
           </p>
           <ButtonLink to={`/learn/achievements/${firstReady.achievementId}`} className="mt-4">
             Verify {firstReadyName ?? "achievement"} on Stellar
@@ -64,10 +64,10 @@ export function LearnerAchievementsPage() {
         </div>
       )}
 
-      <Card className="border-dashed bg-paper">
+        <Card className="border-dashed bg-paper">
         <p className="text-sm leading-6 text-muted">
-          Achievements marked <strong className="font-semibold text-ink">Ready to verify on Stellar</strong> can be
-          proven on Stellar testnet with Freighter.
+          Achievements marked <strong className="font-semibold text-ink">Ready to verify on Stellar</strong> need a short
+          knowledge check, then wallet verification on testnet. Verified milestones include a printable certificate.
         </p>
       </Card>
     </div>

@@ -1,5 +1,7 @@
 # YouCanBuild
 
+![YouCanBuild — People • Skills • Opportunities](public/brand/x-banner.png)
+
 Learn. Build. Get Guided. Prove Your Progress.
 
 YouCanBuild helps women and young learners move from “I want to get into tech” to a structured path: a roadmap, trusted resources, mentorship when they are stuck, and verifiable proof of the milestones that matter.

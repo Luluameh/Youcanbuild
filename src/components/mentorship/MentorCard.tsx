@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { ButtonLink } from "@/components/ui/Button.tsx";
 import { Card } from "@/components/ui/Card.tsx";
+import { MentorSocialLinks } from "@/components/mentorship/MentorSocialLinks.tsx";
 import { Avatar } from "@/components/ui/Avatar.tsx";
 import { availabilityLabel, verificationCopy } from "@/lib/mentorshipUi.ts";
 import type { MentorProfile } from "@/types/index.ts";
@@ -18,7 +19,7 @@ export function MentorCard({ mentor, requestHref, highlighted }: MentorCardProps
   return (
     <Card className={highlighted ? "border-primary/30 ring-1 ring-primary/15" : undefined}>
       <div className="flex items-start gap-3">
-        <Avatar name={mentor.displayName} />
+        <Avatar name={mentor.displayName} src={mentor.avatarSrc} />
         <div className="min-w-0 flex-1">
           <Link to={`/learn/mentors/${mentor.id}`} className="font-semibold text-ink hover:text-primary">
             {mentor.displayName}
@@ -51,6 +52,7 @@ export function MentorCard({ mentor, requestHref, highlighted }: MentorCardProps
           ))}
         </ul>
       </div>
+      <MentorSocialLinks social={mentor.social} className="mt-4" />
       <ButtonLink to={requestHref} className="mt-5" fullWidth>
         Request guidance
       </ButtonLink>

@@ -2,6 +2,7 @@ import { cn } from "@/lib/cn.ts";
 
 type AvatarProps = {
   name: string;
+  src?: string;
   className?: string;
 };
 
@@ -14,7 +15,20 @@ function initials(name: string): string {
     .join("");
 }
 
-export function Avatar({ name, className }: AvatarProps) {
+export function Avatar({ name, src, className }: AvatarProps) {
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt=""
+        width={40}
+        height={40}
+        decoding="async"
+        className={cn("size-10 shrink-0 rounded-full object-cover ring-2 ring-line", className)}
+      />
+    );
+  }
+
   return (
     <span
       className={cn(
