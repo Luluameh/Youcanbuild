@@ -152,9 +152,10 @@ Anything prefixed with `VITE_` is shipped to the browser. Never put a secret key
 3. Manual static site settings if needed: **Build** `npm ci --include=dev && npm run build`, **Publish** `dist`, rewrite **`/*` → `/index.html`**.
 4. Stellar `VITE_*` vars are in `render.yaml` (public testnet defaults). No secrets required.
 
-**If deploy logs say “No open ports detected”** — you created a **Web Service** by mistake. Delete it and redeploy with **Blueprint** or **Static Site**. Vite apps must not bind a port on Render’s free tier for this setup.
+**If deploy logs say “No open ports detected”** — you created a **Web Service** with the wrong **Start Command** (often `npm install; npm run build`). See **[docs/RENDER.md](docs/RENDER.md)**:
 
-**If TypeScript fails on `@vitejs/plugin-react` or `@types/react-dom`** — the build skipped devDependencies. Use `npm ci --include=dev && npm run build` (already in `render.yaml`).
+- **Best:** delete service → **New → Blueprint** (static site, no start command).
+- **Or fix Web Service:** Build `npm ci --include=dev && npm run build`, Start **`npm start`** only.
 
 ## Safety & Privacy
 
