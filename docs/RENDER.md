@@ -12,7 +12,7 @@ Your logs show **Build successful** then **No open ports detected** and a **seco
 Build command from blueprint:
 
 ```bash
-npm ci --include=dev && npm run build
+npm install --include=dev && npm run build
 ```
 
 ---
@@ -23,7 +23,7 @@ If you stay on a **Web Service**, fix **Settings → Build & Deploy**:
 
 | Field | Value |
 |--------|--------|
-| **Build Command** | `npm ci --include=dev && npm run build` |
+| **Build Command** | `npm install --include=dev && npm run build` |
 | **Start Command** | `npm start` |
 
 **Remove** `npm install; npm run build` from **Start Command**. That line runs after deploy, omits devDependencies, and never opens a port — which causes your TypeScript errors.

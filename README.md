@@ -149,13 +149,13 @@ Anything prefixed with `VITE_` is shipped to the browser. Never put a secret key
 
 1. In [Render](https://dashboard.render.com): **New → Blueprint** and connect this GitHub repo (uses [`render.yaml`](render.yaml)).
 2. Confirm the service shows **Runtime: Static** (not a Node web service). **Leave Start Command empty.**
-3. Manual static site settings if needed: **Build** `npm ci --include=dev && npm run build`, **Publish** `dist`, rewrite **`/*` → `/index.html`**.
+3. Manual static site settings if needed: **Build** `npm install --include=dev && npm run build`, **Publish** `dist`, rewrite **`/*` → `/index.html`**.
 4. Stellar `VITE_*` vars are in `render.yaml` (public testnet defaults). No secrets required.
 
 **If deploy logs say “No open ports detected”** — you created a **Web Service** with the wrong **Start Command** (often `npm install; npm run build`). See **[docs/RENDER.md](docs/RENDER.md)**:
 
 - **Best:** delete service → **New → Blueprint** (static site, no start command).
-- **Or fix Web Service:** Build `npm ci --include=dev && npm run build`, Start **`npm start`** only.
+- **Or fix Web Service:** Build `npm install --include=dev && npm run build`, Start **`npm start`** only.
 
 ## Safety & Privacy
 
