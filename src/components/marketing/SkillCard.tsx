@@ -13,7 +13,7 @@ type SkillCardProps = {
 
 export function SkillCard({ path, icon: Icon, compact = false }: SkillCardProps) {
   return (
-    <Card className="flex h-full flex-col">
+    <Card className="card-interactive flex h-full flex-col">
       <div className="flex items-start gap-3">
         <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary-soft text-primary">
           <Icon aria-hidden="true" className="size-5" />

@@ -30,7 +30,7 @@ export function buttonClassName({
   className,
 }: ButtonStyleOptions) {
   return cn(
-    "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors",
+    "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-[transform,background-color,color,box-shadow] duration-300",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
     "disabled:pointer-events-none disabled:opacity-50",
     variants[variant],
